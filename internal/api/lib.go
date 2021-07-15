@@ -1,7 +1,6 @@
 package api
 
-func Run() {
+func Run(addr string) {
 	r := router()
-
-	r.Run()
+	r.Run(addr)
 }
