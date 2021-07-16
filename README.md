@@ -1,6 +1,15 @@
 # Kekule
 
-A very basic RESTful API for a fictional online store.
+A very basic RESTful API for a fictional online store that
+implements CRUD operations for store items.
+
+An item is composed of
+
+1. ID,
+2. SKU,
+3. name,
+4. price,
+5. and category.
 
 ## Compiling and Running
 
@@ -12,9 +21,9 @@ To start the API server use the following command:
 
     go run cmd/kekule/server.go
 
-## API Endpoints
+## Methods
 
-The API supports basic CRUD operations
+The API supports basic CRUD operations.
 
 ### `GET /api/item`
 
