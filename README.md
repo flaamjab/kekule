@@ -57,7 +57,7 @@ for items in the result set, must be positive and valid.
 
 On success, returns a JSON-object like:
 
-```json
+```jsonc
 {
   "result": "success",
   "items": [
@@ -68,7 +68,7 @@ On success, returns a JSON-object like:
       "price": 20.0,
       "category": 2
     },
-    ...
+    // ...
   ]
 }
 ```
@@ -86,7 +86,7 @@ cannot exceed 64 characters.
 
 On success, returns a JSON-object like:
 
-```json
+```jsonc
 {
   "result": "success",
   "id": 12 // ID of the newly created item.
@@ -107,7 +107,7 @@ cannot exceed 64 characters, optional.
 
 On success, returns a JSON-object like:
 
-```json
+```jsonc
 {
   "result": "success",
   "description": "item updated"
@@ -124,7 +124,7 @@ Parameters:
 
 On success, returns a JSON-object like:
 
-```json
+```jsonc
 {
   "result": "success",
   "description": "item deleted"
@@ -139,7 +139,7 @@ Fetches a category.
 
 On success, returns JSON-object like:
 
-```json
+```jsonc
 {
   "result": "success",
   "category": {
@@ -154,7 +154,7 @@ On success, returns JSON-object like:
 All methods return a JSON-object of the following
 form if an error occurred when handling a request:
 
-```json
+```jsonc
 {
   "result": "error message",
   "description": "error details"
