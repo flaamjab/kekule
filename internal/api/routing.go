@@ -213,7 +213,7 @@ func deleteItem(c *gin.Context) {
 						r.Id,
 					),
 				}
-				c.JSON(http.StatusBadRequest, r)
+				c.JSON(http.StatusNotFound, r)
 			}
 		} else {
 			r := resultResponse{
@@ -226,5 +226,36 @@ func deleteItem(c *gin.Context) {
 }
 
 func getCategory(c *gin.Context) {
-	c.String(http.StatusOK, "Category would be returned...")
+	var r getCategoryRequest
+	if err := c.ShouldBindQuery(&r); err == nil {
+		category, err := db.GetCategory(r.Id)
+		if err == nil && category != nil {
+			r := getCategoryResponse{
+				Result:   "success",
+				Category: *category,
+			}
+			c.JSON(http.StatusOK, r)
+		} else if category == nil {
+			r := resultResponse{
+				Result: "failure",
+				Description: fmt.Sprintf(
+					"item with ID %d does not exist",
+					r.Id,
+				),
+			}
+			c.JSON(http.StatusNotFound, r)
+		} else {
+			r := resultResponse{
+				Result:      "server error",
+				Description: "error fetching the category",
+			}
+			c.JSON(http.StatusInternalServerError, r)
+		}
+	} else {
+		r := resultResponse{
+			Result:      "bad request",
+			Description: "make sure that ID is provided and correct",
+		}
+		c.JSON(http.StatusBadRequest, r)
+	}
 }
