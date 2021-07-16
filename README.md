@@ -19,7 +19,31 @@ instructions on setting it up.
 
 To start the API server use the following command:
 
-    go run cmd/kekule/server.go
+    go run cmd/kekule/server.go localhost:8080
+
+You can also launch the server inside a Docker container.
+
+First build it with
+  
+    docker build -t kekule .
+
+then run it with
+
+    docker run -d -p 8080:8080 -e ADDRESS=0.0.0.0:8080 kekule
+
+To launch the server in release mode simply set the `GIN_MODE=release`
+environment variable.
+
+When launching in the local environment
+
+    GIN_MODE=release go run cmd/kekule/server.go localhost:8080
+
+When starting within a container
+
+  docker run -d -p 8080:8080 \
+    -e ADDRESS=0.0.0.0:8080 \
+    -e GIN_MODE=release \
+    kekule
 
 ## Methods
 
