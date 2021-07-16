@@ -10,7 +10,7 @@ type Category struct {
 }
 
 func GetCategory(id int64) (*Category, error) {
-	db, err := sql.Open(dB_DRIVER, oPEN_DB_READONLY)
+	db, err := sql.Open(dbDriver, openDbReadoly)
 
 	if err != nil {
 		return nil, err

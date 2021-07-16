@@ -48,7 +48,7 @@ func NewItem(
 	price float64,
 	category int64,
 ) (int64, error) {
-	db, err := sql.Open(dB_DRIVER, oPEN_DB)
+	db, err := sql.Open(dbDriver, openDb)
 	if err != nil {
 		return 0, err
 	}
@@ -69,7 +69,7 @@ func NewItem(
 }
 
 func GetItem(id int64) (*Item, error) {
-	db, err := sql.Open(dB_DRIVER, oPEN_DB_READONLY)
+	db, err := sql.Open(dbDriver, openDbReadoly)
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +107,7 @@ func GetItemList(
 	page Page,
 	filters ItemFilters,
 ) ([]Item, error) {
-	db, err := sql.Open(dB_DRIVER, oPEN_DB_READONLY)
+	db, err := sql.Open(dbDriver, openDbReadoly)
 	if err != nil {
 		return nil, err
 	}
@@ -151,7 +151,7 @@ func GetItemList(
 }
 
 func UpdateItem(item Item) error {
-	db, err := sql.Open(dB_DRIVER, oPEN_DB)
+	db, err := sql.Open(dbDriver, openDb)
 	if err != nil {
 		return err
 	}
@@ -166,7 +166,7 @@ func UpdateItem(item Item) error {
 }
 
 func DeleteItem(id int64) (bool, error) {
-	db, err := sql.Open(dB_DRIVER, oPEN_DB)
+	db, err := sql.Open(dbDriver, openDb)
 	if err != nil {
 		return false, err
 	}
