@@ -6,6 +6,7 @@ import (
 
 	"github.com/flaamjab/kekule/internal/db"
 	"github.com/gin-gonic/gin"
+	"github.com/mattn/go-sqlite3"
 )
 
 func router() *gin.Engine {
@@ -85,7 +86,6 @@ func getItemList(c *gin.Context) {
 			r := getItemListResponse{Result: "success", Items: items}
 			c.JSON(http.StatusOK, r)
 		} else {
-			fmt.Println(err)
 			r := resultResponse{
 				Result:      "server error",
 				Description: "error fetching item list",
@@ -109,11 +109,22 @@ func postItem(c *gin.Context) {
 			r := newItemResponse{Result: "success", Id: id}
 			c.JSON(http.StatusOK, r)
 		} else {
-			r := resultResponse{
-				Result:      "server error",
-				Description: "failed to create an item",
+			err := err.(sqlite3.Error)
+			switch err.Code {
+			case sqlite3.ErrConstraint:
+				r := resultResponse{
+					Result:      "forbidden",
+					Description: "this action is not permitted",
+				}
+				c.JSON(http.StatusForbidden, r)
+			default:
+				r := resultResponse{
+					Result:      "server error",
+					Description: "failed to create an item",
+				}
+				c.JSON(http.StatusInternalServerError, r)
 			}
-			c.JSON(http.StatusInternalServerError, r)
+
 		}
 	} else {
 		r := resultResponse{
@@ -157,11 +168,21 @@ func putItem(c *gin.Context) {
 				c.JSON(http.StatusNotFound, r)
 			}
 		} else {
-			r := resultResponse{
-				Result:      "server error",
-				Description: "error fetching the item",
+			err := err.(sqlite3.Error)
+			switch err.Code {
+			case sqlite3.ErrConstraint:
+				r := resultResponse{
+					Result:      "forbidden",
+					Description: "this action is not permitted",
+				}
+				c.JSON(http.StatusForbidden, r)
+			default:
+				r := resultResponse{
+					Result:      "server error",
+					Description: "error fetching the item",
+				}
+				c.JSON(http.StatusInternalServerError, r)
 			}
-			c.JSON(http.StatusInternalServerError, r)
 		}
 	} else {
 		r := resultResponse{
