@@ -23,6 +23,6 @@ type getItemListResponse struct {
 }
 
 type getCategoryResponse struct {
-	Result   string `json:"result"`
-	Category int    `json:"category"`
+	Result   string      `json:"result"`
+	Category db.Category `json:"category"`
 }

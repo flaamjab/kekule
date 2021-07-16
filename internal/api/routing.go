@@ -77,8 +77,8 @@ func getItemList(c *gin.Context) {
 		page := db.Page{Number: *r.Page, Size: *r.Limit}
 		filters := db.ItemFilters{
 			Category:   r.Category,
-			LowerPrice: r.LowerPrice,
-			UpperPrice: r.UpperPrice,
+			LowerPrice: r.LowestPrice,
+			UpperPrice: r.HighestPrice,
 		}
 
 		items, err := db.GetItemList(page, filters)

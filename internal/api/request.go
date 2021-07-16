@@ -7,15 +7,15 @@ type getItemRequest struct {
 }
 
 type getItemListRequestFilters struct {
-	Page       *int     `form:"page" binding:"min=1"`
-	Limit      *int     `form:"limit" binding:"max=100"`
-	LowerPrice *float64 `form:"lowest_price"`
-	UpperPrice *float64 `form:"highest_price"`
-	Category   *int64   `form:"category"`
+	Page         *int     `form:"page" binding:"min=1"`
+	Limit        *int     `form:"limit" binding:"max=100"`
+	LowestPrice  *float64 `form:"lowest_price" binding:"min=0"`
+	HighestPrice *float64 `form:"highest_price" binding:"min=0"`
+	Category     *int64   `form:"category" binding:"min=0"`
 }
 
 type postItemRequest struct {
-	Name     string  `json:"name" binding:"required"`
+	Name     string  `json:"name" binding:"required,max=64"`
 	Price    float64 `json:"price" binding:"required,min=0"`
 	Category int64   `json:"category" binding:"required"`
 }
@@ -49,5 +49,9 @@ func (r putItemRequest) ToItem() (*db.Item, error) {
 }
 
 type deleteItemRequest struct {
+	Id int64 `form:"id" binding:"required"`
+}
+
+type getCategoryRequest struct {
 	Id int64 `form:"id" binding:"required"`
 }

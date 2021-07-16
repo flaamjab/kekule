@@ -8,11 +8,11 @@ import (
 )
 
 type Item struct {
-	Id       int64
-	Sku      string
-	Name     string
-	Price    float64
-	Category int64
+	Id       int64   `json:"id"`
+	Sku      string  `json:"sku"`
+	Name     string  `json:"name"`
+	Price    float64 `json:"price"`
+	Category int64   `json:"category"`
 }
 
 type ItemFilters struct {

@@ -9,7 +9,7 @@ type Category struct {
 	Name string
 }
 
-func GetCategory(id int) (*Category, error) {
+func GetCategory(id int64) (*Category, error) {
 	db, err := sql.Open(dB_DRIVER, oPEN_DB_READONLY)
 
 	if err != nil {
@@ -30,6 +30,8 @@ func GetCategory(id int) (*Category, error) {
 		rows.Scan(&c.Id, &c.Name)
 	} else if rows.Err() != nil {
 		return nil, rows.Err()
+	} else {
+		return nil, nil
 	}
 
 	return &c, nil
