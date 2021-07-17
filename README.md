@@ -19,7 +19,9 @@ instructions on setting it up.
 
 To start the API server use the following command:
 
-    go run cmd/kekule/server.go localhost:8080
+```sh
+go run cmd/kekule/server.go localhost:8080
+```
 
 You can also launch the server inside a Docker container.
 
