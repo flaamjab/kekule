@@ -5,4 +5,5 @@ COPY go.sum .
 COPY internal internal
 COPY hack hack
 COPY cmd cmd
+RUN go mod download
 CMD go run cmd/kekule/server.go $ADDRESS
